@@ -54,7 +54,7 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS_STAGING }}
-    - name: Upload to Storage
+    - name: Upload to Azure Storage Static Website
       run: |
         az storage blob upload-batch \
           --account-name ${{ secrets.STAGING_STORAGE_ACCOUNT }} \
