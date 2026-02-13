@@ -1,0 +1,29 @@
+name: Deploy Backend to Azure Container Apps
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'simple-server.js'
+      - 'package*.json'
+      - 'Dockerfile'
+      - '.github/workflows/deploy-backend.yml'
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Build and push Docker image
+      run: |
+        az acr login --name ${{ secrets.ACR_NAME }}
+        docker build --platform linux/amd64 -t ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest .
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest
+    - name: Deploy to Container App
+      run: |
+        az containerapp update \
+          --name ${{ secrets.CONTAINER_APP_NAME }} \
+          --resource-group ${{ secrets.RESOURCE_GROUP }} \
+          --image ${{ secrets.ACR_NAME }}.azurecr.io/backend:latest
