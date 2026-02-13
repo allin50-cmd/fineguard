@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "value": "production"
+    },
+    "location": {
+      "value": "uksouth"
+    },
+    "postgresAdminPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/b4425219-519a-45ab-a233-77272def645f/resourceGroups/rg-fineguard-prod/providers/Microsoft.KeyVault/vaults/fineguard-vault-prod"
+        },
+        "secretName": "postgres-admin-password"
+      }
+    },
+    "perplexityApiKey": {
+      "value": "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"
+    },
+    "companiesHouseApiKey": {
+      "value": "elab6044-6d0a-4fec-83fe-dfee5e1d83c7"
+    }
+  }
+}

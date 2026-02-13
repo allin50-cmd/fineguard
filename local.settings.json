@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsStorage": "",
+    "COSMOS_CONNECTION_STRING": "mongodb://fineguard:dev_password_123@localhost:27017/fineguard?authSource=admin",
+    "SERVICE_BUS_CONNECTION_STRING": "amqp://fineguard:dev_password_123@localhost:5672",
+    "COMPANIES_HOUSE_API_KEY": "elab6044-6d0a-4fec-83fe-dfee5e1d83c7"
+  }
+}

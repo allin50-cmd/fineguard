@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: fg-cosmos
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: fineguard
+      MONGO_INITDB_ROOT_PASSWORD: dev_password_123
+    volumes:
+      - mongo-data:/data/db
+      
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: fg-servicebus
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: fineguard
+      RABBITMQ_DEFAULT_PASS: dev_password_123
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: fg-storage
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    command: azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0
+
+volumes:
+  mongo-data:
+  rabbitmq-data:
